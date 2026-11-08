@@ -1,0 +1,12 @@
+{
+  "source_project": "MatCreator",
+  "source_commit": "241d5c2e418deb522ea4ac617f7c965c3f4fdb48",
+  "source_relative_path": ".scratch/aidb-wayfinding/prototypes/explicit-operations/matcreator-experience.prototype.html",
+  "source_sha256": "9c0ec2592203c2889fc06f7a172c0d2224b8a1962cc892a914455ff9840bf9c3",
+  "published_sha256": "b0b0c2640770e56c599ecd3cb80bd108598c3add97464d3baa2a033503a01022",
+  "changes": [
+    "Replace personal absolute paths with MATCREATOR, AIDB, MATCREATOR_USER_HOME and DEMO_HOME placeholders.",
+    "Clarify that displayed commands contain placeholders."
+  ],
+  "scope": "Offline review attachment; embedded demonstration data and captured observations; not a live AIDB client."
+}

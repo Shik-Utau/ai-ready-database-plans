@@ -6,6 +6,8 @@
 
 本文为讨论稿。四类框架是既有确认方向；每类具体范围及危险操作确认方式仍待审阅，不声明当前软件已经完整支持。
 
+审阅附件：[MatCreator 按钮体验原型](../../../../../docs/prototypes/explicit-operations/README.md)。模拟交互仅帮助讨论本规格，尤其是修改覆盖、字段语义与实际交付数量，不代表新增产品要求已通过。
+
 ## ADDED Requirements
 
 ### Requirement: 主动操作覆盖四类目的
