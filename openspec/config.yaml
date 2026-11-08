@@ -1,0 +1,11 @@
+schema: spec-driven
+context: |
+  Language: Chinese. Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  This is a standalone planning-only repository for AI-ready Database.
+  No application code, datasets, credentials, prototype binaries, or implementation commits belong here.
+  Plans cover explicit AIDB operations, pre-calculation lookup, and post-calculation collection.
+  Read README.md and docs/review-workflow.md before changing plans.
+  Distinguish confirmed direction, proposed behavior, observed evidence, and unresolved decisions.
+  Requirements in active changes are draft acceptance targets, not claims of shipped features.
+  This repository does not authorize editing or implementing in any external code repository.
+  Run the CLI from the current repository root; never assume a personal machine path.
