@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-09",
+  "sourcePrototypeCommit": "775dea9",
+  "sourcePrototypeSHA256": "b9fe5e3afcec50fac1d8b85ba7ef1003891635098ccbc902b28759454fe9a529",
+  "publishedHTMLSHA256": "09a0816cedf6090426a15259a78132a92d952c225a50fd4bd2870199b48c842c",
+  "stateModelSHA256": "f4096fbbccd4feb6b6a4578398ea5225e1c19f124b355ec0152ef95000ea59c8",
+  "stateModelUnchanged": true,
+  "evidence": "Issue 07 saved Si and synthetic records, 2026-11-08; not rerun",
+  "publication": "Personal home and ephemeral temporary-directory prefixes replaced; numerical evidence and state transitions retained",
+  "scope": "02 result archive only; explicit operations unchanged; no production or user database writes",
+  "originalEvidenceSHA256": "26e7f4d05d52f6309ad3f7c26ef2f1da08d9a6ea458bdd74f458f965f7c0c10f"
+}

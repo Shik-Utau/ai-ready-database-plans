@@ -1,6 +1,6 @@
 # AI-ready Database Plans
 
-独立的 AI-ready Database 计划书与规格讨论仓库，使用 OpenSpec 组织提案。**仅包含规划文档，不包含 MatCreator / AIDB 应用代码或计算数据。**
+独立的 AI-ready Database 计划书与规格讨论仓库，使用 OpenSpec 组织提案。维护规划文档及用户授权的独立 HTML 审阅附件，不包含 MatCreator / AIDB 生产应用代码或原始计算数据包。
 
 ## 从这里阅读
 
@@ -13,6 +13,10 @@
 5. [来源与证据限制](docs/source-notes.md)
 
 首版从已有讨论提炼；只明确已有方向，未定问题保持可见，未迁移原任务的认领与状态。
+
+## 可交互审阅附件
+
+[02 结果归档简洁原型](docs/prototypes/result-archive/README.md)：下载单文件 HTML 后打开，体验读取结果与保存状态。附简洁调研报告；通过 [OpenSpec 变更](openspec/changes/simplify-result-archive-prototype/proposal.md)维护范围及检查记录。演示使用少量嵌入证据值和内存状态，不连接数据库，不表示业务已验收。
 
 ## 如何一起修改
 
@@ -34,7 +38,7 @@ openspec validate plan-aidb-three-flows --strict
 
 status 的文档完成状态仅表示所需文件已存在；validate 仅检查规格格式，不代表方向、实现或测试已通过。
 
-本仓库以 `--tools none` 初始化，没有绑定某个 AI 工具的生成技能。后续需要时可在克隆目录选择自己的工具；不要让 apply 将本计划仓库当作实现目标。
+本仓库以 `--tools none` 初始化，没有绑定某个 AI 工具的生成技能。后续需要时可在克隆目录选择自己的工具；apply 仅可处理已明确授权的审阅附件，不将本仓库当作生产应用实现目标。
 
 ## 目录
 

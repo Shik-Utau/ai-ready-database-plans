@@ -3,6 +3,7 @@ context: |
   Language: Chinese. Keep OpenSpec structural headings and SHALL/MUST keywords in English.
   This is a standalone planning-only repository for AI-ready Database.
   No application code, datasets, credentials, prototype binaries, or implementation commits belong here.
+  User-authorized self-contained HTML review attachments and necessary embedded demonstration values may live under docs/prototypes; these are not production implementations or accepted business specifications.
   Plans cover explicit AIDB operations, pre-calculation lookup, and post-calculation collection.
   Read README.md and docs/review-workflow.md before changing plans.
   Distinguish confirmed direction, proposed behavior, observed evidence, and unresolved decisions.
