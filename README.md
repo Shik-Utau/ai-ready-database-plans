@@ -16,7 +16,7 @@
 
 ## 可交互审阅附件
 
-[02 结果归档简洁原型](docs/prototypes/result-archive/README.md)：下载单文件 HTML 后打开，体验读取结果与保存状态。附简洁调研报告；通过 [OpenSpec 变更](openspec/changes/simplify-result-archive-prototype/proposal.md)维护范围及检查记录。演示使用少量嵌入证据值和内存状态，不连接数据库，不表示业务已验收。
+[02 结果归档完整引导版](docs/prototypes/result-archive/README.md)：下载单文件 HTML 后打开，按步骤体验读取、保存、查询与字段比较。附简洁调研报告；通过 [OpenSpec 变更](openspec/changes/simplify-result-archive-prototype/proposal.md)维护范围及检查记录。演示使用少量嵌入证据值和内存状态，不连接数据库，不表示业务已验收。
 
 ## 如何一起修改
 
