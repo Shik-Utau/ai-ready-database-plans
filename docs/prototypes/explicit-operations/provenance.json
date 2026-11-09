@@ -1,12 +1,13 @@
 {
   "source_project": "MatCreator",
-  "source_commit": "241d5c2e418deb522ea4ac617f7c965c3f4fdb48",
+  "source_commit": "d5a5d85b5406bfceef99707797e55bcc1a3e35dc",
+  "source_branch": "codex/prototype-explicit-aidb-20261109-simplified",
   "source_relative_path": ".scratch/aidb-wayfinding/prototypes/explicit-operations/matcreator-experience.prototype.html",
-  "source_sha256": "9c0ec2592203c2889fc06f7a172c0d2224b8a1962cc892a914455ff9840bf9c3",
-  "published_sha256": "b0b0c2640770e56c599ecd3cb80bd108598c3add97464d3baa2a033503a01022",
+  "source_sha256": "87cee7e66c5aadfbf6b0a29bed99e44e480a13bf2c158e9803a54dd072d49e3a",
+  "published_sha256": "c083f85b912e8f8b374dab09c7a808d3107100b55165f75e4709f1a4de952da2",
+  "revision": "2026-11-09 accepted feedback 1, 2, 5",
   "changes": [
-    "Replace personal absolute paths with MATCREATOR, AIDB, MATCREATOR_USER_HOME and DEMO_HOME placeholders.",
-    "Clarify that displayed commands contain placeholders."
+    "Replace personal absolute paths with placeholders."
   ],
-  "scope": "Offline review attachment; embedded demonstration data and captured observations; not a live AIDB client."
+  "scope": "Offline simplified review prototype; POSCAR export is a candidate interaction, not production implementation."
 }

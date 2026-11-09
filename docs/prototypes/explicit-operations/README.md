@@ -1,23 +1,25 @@
-# 四类主动操作：MatCreator 体验原型
+# MatCreator 主动操作：精简体验原型
 
-[下载单文件 HTML](https://raw.githubusercontent.com/Shik-Utau/ai-ready-database-plans/codex/share-explicit-operations-prototype/docs/prototypes/explicit-operations/index.html) · [查看源码](index.html) · [发布来源与指纹](provenance.json)
+[下载单文件 HTML](https://raw.githubusercontent.com/Shik-Utau/ai-ready-database-plans/codex/share-explicit-operations-prototype/docs/prototypes/explicit-operations/index.html) · [查看源码](index.html) · [来源与指纹](provenance.json)
 
-点击下载链接后，保存为 `aidb-prototype.html`，用浏览器打开。也可在 GitHub 的 index.html 文件页选择 Download raw file。GitHub 文件页显示源码，不直接运行页面；无需 Node、Python、AIDB、服务器、登录或网络连接。
+保存为 `aidb-prototype.html`，用浏览器打开。GitHub 文件页只显示源码，也可点击 Download raw file。无需安装、登录或服务器，打开后可离线体验。
 
 ## 从这里开始
 
-顶部选“1 四类连起来体验”，按聊天底部橙色按钮依次保存、查询、选中、查看、导出、修改和删除。一键发送完整请求，执行步骤自动出现在聊天中。宽窗口显示 MatCreator 三栏；窄窗口采用上下布局。
+默认选择“使用已有记录”，点击橙色按钮依次查询 Si、选择备注、导出结构。在 Files 点击 `.vasp` 文件下载。顶部另有“保存已有计算结果”，从空库体验独立保存，再查询。
 
-另外四组场景：备注会不会被重新导入覆盖、导出缺了什么、删除后旧选择失效、零命中与数据库故障。可以自由点击各类别的按钮，也可以在结果卡中选记录，查看完整字段，下载页面生成的样例 JSONL 或体验记录。刷新会重置本页内存。
+主界面只突出当前记录、备注和文件。执行过程与状态可展开，删除在记录详情内。已移除字段导出、JSONL 导出、故障开关及异常专项场景；异常研究证据仍保留在上一版 Git 历史中。
 
-## 反馈什么
+## 2026-11-09 反馈与边界
 
-对应 OpenSpec 变更 [plan-aidb-three-flows](../../../openspec/changes/plan-aidb-three-flows/proposal.md)，具体参照[主动操作规格](../../../openspec/changes/plan-aidb-three-flows/specs/aidb-explicit-operations/spec.md)和[设计阻塞项](../../../openspec/changes/plan-aidb-three-flows/design.md) B1、B3、B5。
+2026-11-09：用户接受师兄反馈中的 1、2、5：减少信息量、减少防御性功能展示、移除字段导出和 JSONL 导出。本版将默认体验收敛为查询 → 备注 → 导出结构；技术过程与状态折叠，故障开关和异常专项场景移出当前体验。删除保留在详情内。
 
-反馈请写明场景、按钮顺序、看到的结果、希望的行为，必要时附页面导出的体验记录。重点讨论：重新导入是否应保留备注，导出缺单位如何反馈，删除范围包含什么，以及由谁提供可核对的完成证据。原型发布或 PR 合并不代表上述问题已决定。
+POSCAR 是本版为结构导出选择的候选格式，尚不是用户确认的最终格式。主动查询 query 与保存 insert 分开；自动采集的触发覆盖仍由对应工单决定。本页不模拟自动导入。默认一条预置记录，另提供空库下主动保存的流程。
 
-## 真实与模拟
+本版重复保存仅提示已存在，不执行覆盖，这是聚焦主流程的原型简化，不是已修复现有重导入覆盖备注问题。旧实验和旧版本仍作为历史证据保留，不因隐藏异常演示宣告问题解决。
 
-数据来自既有 Si 样本及一次隔离实验的 16 个事件。已观察：JSONL 出口缺少部分应力／维里语义标签、重导入覆盖备注、旧 ID 导出实际 0 条。页面的聊天、调度、数据库及自由操作均为内存模拟；点按钮不会调用真实 AIDB、执行计算或修改用户数据库。实际调用详情是固定记录，不是当前点击的新运行。
+数据来自已有 Si 导入快照。聊天、备注、删除和文件生成均在本页内存中；点击不会调用真实数据库，刷新会重置。POSCAR 只含晶格与原子坐标，不含备注、能量或力。未在这轮重新运行数据库实验。
 
-本次只发布自包含审阅附件和必要演示值，没有上传用户数据库、原始 VASP 文件、凭据或生产实现。个人绝对路径已替换为占位标识，展示命令不能直接复制执行。没有在本次发布时重跑数据库实验；宿主集成、任意导入格式、并发恢复、完整字段和业务职责仍不能据此认定通过。
+已核对浏览器中的查询、备注、POSCAR 预览与下载，以及空库查询不导入、主动保存后再查询。该验证不代表宿主集成或业务验收通过。
+
+对应 OpenSpec [主动操作规格](../../../openspec/changes/plan-aidb-three-flows/specs/aidb-explicit-operations/spec.md)和[设计](../../../openspec/changes/plan-aidb-three-flows/design.md)。请反馈主流程是否清楚、备注与结构交付是否满足用途；B1/B3/B5 其余事项仍待讨论。

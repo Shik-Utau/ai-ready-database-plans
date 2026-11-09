@@ -4,7 +4,7 @@
 
 ## 体验主动操作原型
 
-[查看说明与下载入口](docs/prototypes/explicit-operations/README.md)：MatCreator 风格的四类主动操作，点击按钮代替自然语言输入。下载 HTML 后用浏览器打开即可，无需安装或登录。页面是内存模拟，含演示所需的 Si 数值和已观察问题；不连接真实数据库。GitHub 文件页显示源码，不会直接运行 HTML。
+[查看说明与下载入口](docs/prototypes/explicit-operations/README.md)：MatCreator 风格的精简主动操作，主流程为查询、备注、导出结构，另有独立保存入口。点击按钮代替自然语言输入。下载 HTML 后用浏览器打开即可，无需安装或登录。页面是内存模拟，含演示所需的 Si 数值；不连接真实数据库。GitHub 文件页显示源码，不会直接运行 HTML。
 
 ## 从这里阅读
 
