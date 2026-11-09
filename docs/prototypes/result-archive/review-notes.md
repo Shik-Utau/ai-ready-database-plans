@@ -17,3 +17,5 @@
 脚本语法检查通过；纯状态转换模块 SHA256 与原版完全相同，见 [来源指纹](provenance.json)。所有改动限于展示、报告和共享文档。
 
 这不是生产数据库回归测试，也没有代替用户点击“可以接受”。02 的归档范围和失败恢复方案仍待业务判断。
+
+共享核对：已建立 [PR #2](https://github.com/Shik-Utau/ai-ready-database-plans/pull/2)。从分支读回 index.html，与本地文本完全相同；HTML SHA256 见 provenance.json。发布前后 main 与主动操作原型分支头均未被本次上传更改。原型处于审阅分支，尚未合并到 main，未启用 Pages。
