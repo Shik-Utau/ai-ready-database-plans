@@ -1,6 +1,10 @@
 # AI-ready Database Plans
 
-独立的 AI-ready Database 计划书与规格讨论仓库，使用 OpenSpec 组织提案。**仅包含规划文档，不包含 MatCreator / AIDB 应用代码或计算数据。**
+独立的 AI-ready Database 计划书与规格讨论仓库，使用 OpenSpec 组织提案。维护规划文档及明确授权的可交互审阅附件，不包含 MatCreator / AIDB 生产实现或用户数据库。
+
+## 体验主动操作原型
+
+[查看说明与下载入口](docs/prototypes/explicit-operations/README.md)：MatCreator 风格的四类主动操作，当前审阅重点是 VASP 入库条件和候选查询展示。点击按钮代替自然语言输入。下载 HTML 后用浏览器打开即可，无需安装或登录。页面是内存模拟，含演示所需的 Si 数值；不连接真实数据库。GitHub 文件页显示源码，不会直接运行 HTML。
 
 ## 从这里阅读
 

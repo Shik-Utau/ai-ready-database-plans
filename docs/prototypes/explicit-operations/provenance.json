@@ -1,0 +1,13 @@
+{
+  "source_project": "MatCreator",
+  "source_commit": "a06efbc44a3835f26efae757f73e4a9c94b6e1cf",
+  "source_branch": "codex/prototype-explicit-aidb-20261109-field-presentation",
+  "source_relative_path": ".scratch/aidb-wayfinding/prototypes/explicit-operations/matcreator-experience.prototype.html",
+  "source_sha256": "817721487ab596eae2831ffdc2e3ee34c65cb450702faa32de068b28046d02d8",
+  "published_sha256": "b614648b396aec3cf545f6ec8abeddf26e810bca9918b2763b0fd2d44bc59cbd",
+  "revision": "2026-11-09 VASP insert conditions and candidate query presentation",
+  "changes": [
+    "Replace personal absolute paths with placeholders."
+  ],
+  "scope": "Offline review prototype using a captured Si relaxation frame and a labeled missing-force simulation. Candidate review behavior pending feedback."
+}
