@@ -1,13 +1,13 @@
 {
   "source_project": "MatCreator",
-  "source_commit": "d5a5d85b5406bfceef99707797e55bcc1a3e35dc",
-  "source_branch": "codex/prototype-explicit-aidb-20261109-simplified",
+  "source_commit": "a06efbc44a3835f26efae757f73e4a9c94b6e1cf",
+  "source_branch": "codex/prototype-explicit-aidb-20261109-field-presentation",
   "source_relative_path": ".scratch/aidb-wayfinding/prototypes/explicit-operations/matcreator-experience.prototype.html",
-  "source_sha256": "87cee7e66c5aadfbf6b0a29bed99e44e480a13bf2c158e9803a54dd072d49e3a",
-  "published_sha256": "c083f85b912e8f8b374dab09c7a808d3107100b55165f75e4709f1a4de952da2",
-  "revision": "2026-11-09 accepted feedback 1, 2, 5",
+  "source_sha256": "817721487ab596eae2831ffdc2e3ee34c65cb450702faa32de068b28046d02d8",
+  "published_sha256": "b614648b396aec3cf545f6ec8abeddf26e810bca9918b2763b0fd2d44bc59cbd",
+  "revision": "2026-11-09 VASP insert conditions and candidate query presentation",
   "changes": [
     "Replace personal absolute paths with placeholders."
   ],
-  "scope": "Offline simplified review prototype; POSCAR export is a candidate interaction, not production implementation."
+  "scope": "Offline review prototype using a captured Si relaxation frame and a labeled missing-force simulation. Candidate review behavior pending feedback."
 }

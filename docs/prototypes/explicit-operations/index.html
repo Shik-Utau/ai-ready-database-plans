@@ -6,47 +6,470 @@
 @media(max-width:1100px){.layout{grid-template-columns:180px minmax(400px,1fr) 248px;gap:8px;padding:8px}.brand{font-size:14px;padding:13px}.graph{padding:10px}.feed{padding:15px}.metrics{gap:6px}.metric strong{font-size:16px}}
 @media(max-width:860px){.layout{height:auto;grid-template-columns:1fr;min-height:0}.rail{display:none}.chat{min-height:720px;height:80vh}.right{display:grid;grid-template-columns:1fr 1fr}.lab{padding:10px}.metrics{grid-template-columns:1fr 1fr}.right .block{border-right:1px solid var(--soft)}}
 </style></head><style>
-.layout{height:calc(100dvh - 115px);grid-template-columns:190px minmax(440px,1fr) 250px}.lab{background:#1c2020;border-bottom-color:var(--soft)}.lab-title .tag{background:#303632;color:#b9c6bf}.chat{overflow:hidden}.body{white-space:normal}.composer{flex-shrink:0}.guided{border-top:1px solid var(--soft);margin-top:12px;padding-top:10px}.guided .row{justify-content:space-between}.right .block{order:unset!important}summary{cursor:pointer;color:var(--muted)}.result details{margin-top:12px;font-size:12px}.fields{display:grid;grid-template-columns:78px 1fr;gap:6px 10px;font-size:12px}.fields dt{color:var(--muted)}.fields dd{margin:0;overflow-wrap:anywhere}.result-actions{display:flex;gap:7px;flex-wrap:wrap}.trace{font-size:12px;padding:10px 12px;border:1px solid var(--soft);border-radius:7px;margin:0 0 18px 39px;color:var(--muted)}.note-choice{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}.file-preview{white-space:pre;overflow:auto;background:var(--bg);padding:12px;font-size:12px}.modal{max-width:720px}.right .file{width:100%;overflow-wrap:anywhere}.quiet{font-size:12px;padding:5px 8px}.state-details{padding:10px 14px;font-size:12px}.formula{font-size:25px}.job button{font-size:12px}.chat-head h1{font-size:17px}.right{overflow:auto}.workspace{overflow:auto}.no-margin{margin:0}
-@media(min-width:1550px){.layout{grid-template-columns:220px minmax(500px,1fr) 280px}}
-@media(max-width:1100px){.layout{grid-template-columns:160px minmax(380px,1fr) 220px;gap:8px;padding:8px}.brand{font-size:13px;padding:12px}.feed{padding:14px}.composer{padding:12px}}
-@media(max-width:860px){.layout{height:auto;grid-template-columns:minmax(0,1fr);min-height:0}.rail{display:none}.chat{min-height:620px;height:82dvh}.right{display:block}.lab{padding:10px}.feed{padding:12px}.metrics{grid-template-columns:repeat(3,1fr)}.chat-head,.composer{padding:12px}.presets button{font-size:12px}.lab-title{font-size:13px}}
-</style><body>
-<header class="lab"><div class="row spread"><div class="lab-title"><span class="tag">#03 · 可丢弃原型</span>查找、备注、导出，是否更容易看懂？</div><div class="row"><button id="help" class="quiet">说明</button><button id="reset" class="quiet">重新体验</button></div></div><p>按钮代替文字输入 · 演示数据仅在本页内存中变化</p><nav id="scenarios" class="scenarios" aria-label="体验流程"></nav></header>
-<main class="layout"><aside class="rail"><div class="card brand">◇ MATCREATOR</div><div class="card"><div class="section-title">Agent Graph</div><div id="graph" class="graph"></div></div><div class="card"><div class="section-title">Remote Jobs</div><div class="job"><b class="small">si-bulk-relax</b><p class="small muted">已完成 · Si / 8 原子<br>工作区已有 VASP 输出</p><button data-action="IMPORT">保存已有计算结果</button><p class="small muted">独立保存，不由查询触发。</p></div></div><div class="card bottom small muted">本地演示 · 刷新后重置</div></aside>
-<section class="card chat"><nav class="tabs"><button id="chat-tab" class="active">◉ AIDB 对话</button><button id="db-tab">▦ 记录</button></nav><div class="chat-head"><h1 id="conversation-title"></h1><div id="scenario-note" class="small muted"></div></div><div id="feed" class="feed" aria-live="polite"></div><div id="database" class="workspace" hidden></div><div class="composer"><p>直接选择你要做的事</p><div class="presets"><button data-action="QUERY">查硅的已有结果</button><button data-action="NOTE">加备注</button><button data-action="EXPORT">导出结构</button></div><div id="guided" class="guided"></div><details class="small muted" style="margin-top:10px"><summary>已有计算结果还没入库？</summary><p>保存是独立操作，查询只读取数据库。</p><button data-action="IMPORT" class="quiet">保存工作区的 Si 结果</button></details></div></section>
-<aside class="card right"><section class="block"><h2>当前记录</h2><div id="selected"></div></section><section class="block"><h2>Files</h2><div id="files"></div></section><details class="state-details"><summary>查看本次操作与状态</summary><div id="state"></div></details></aside></main><div id="modal-root"></div>
-<script id="evidence-data" type="application/json">{"snapshots": {"imported": [{"record_id": "67fd8aecb51086dec004fb9bc2c46963", "source_dataset": "prototype_only", "source_id": "explicit-prototype-si", "structure": {"@class": "Structure", "@module": "pymatgen.core.structure", "charge": 0.0, "lattice": {"a": 5.46845383, "alpha": 90.0, "b": 5.46845383, "beta": 90.0, "c": 5.46845383, "gamma": 90.0, "matrix": [[5.46845383, 0.0, 0.0], [0.0, 5.46845383, 0.0], [0.0, 0.0, 5.46845383]], "pbc": [true, true, true], "volume": 163.52857383287443}, "properties": {}, "sites": [{"abc": [-0.0, 0.0, -0.0], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [0.0, 0.0, 0.0]}, {"abc": [-0.0, 0.5, 0.5], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [0.0, 2.734226915, 2.734226915]}, {"abc": [0.5, 0.0, 0.5], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [2.734226915, 0.0, 2.734226915]}, {"abc": [0.5, 0.5, -0.0], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [2.734226915, 2.734226915, 0.0]}, {"abc": [0.25, 0.25, 0.25], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [1.3671134575, 1.3671134575, 1.3671134575]}, {"abc": [0.25, 0.75, 0.75], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [1.3671134575, 4.101340372499999, 4.101340372499999]}, {"abc": [0.75, 0.25, 0.75], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [4.101340372499999, 1.3671134575, 4.101340372499999]}, {"abc": [0.75, 0.75, 0.25], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [4.101340372499999, 4.101340372499999, 1.3671134575]}]}, "formula_reduced": "Si", "composition": {"Si": 8.0}, "elements": ["Si"], "nsites": 8, "structure_hash": "9e65f049d759c4977e29a1a76796e1847f8e94ea", "formula_pretty": "Si8", "volume": 163.52857383287443, "density": null, "energy": -43.38227814, "energy_per_atom": -5.4227847675, "forces": [[-0.0, 0.0, -0.0], [0.0, -0.0, 0.0], [0.0, 0.0, 0.0], [0.0, -0.0, -0.0], [0.0, -0.0, -0.0], [-0.0, 0.0, 0.0], [0.0, 0.0, -0.0], [-0.0, 0.0, -0.0]], "stress": [[-0.0003343641475260753, -0.0, -0.0], [-0.0, -0.0003343641475260753, -0.0], [0.0, -0.0, -0.0003343641475260753]], "stress_unit": "eV/Angstrom^3", "stress_convention": "tensile_positive", "virial": [[0.05467809218578393, 0.0, 0.0], [0.0, 0.05467809218578393, 0.0], [-0.0, 0.0, 0.05467809218578393]], "virial_unit": "eV", "magmom": null, "charge": null, "functional": null, "hubbard_u": null, "has_transition_metal": false, "calculation_type": "relaxation", "calculation_parameters": {"ADDGRID": false, "AEXX": 0.0, "AGGAC": 1.0, "AGGAX": 1.0, "ALDAC": 1.0, "ALDAX": 1.0, "AMIN": 0.1, "AMIX": 0.4, "AMIX_MAG": 1.6, "ANTIRES": 0, "APACO": 10.0, "AVECCONST": [0.0, 0.0, 0.0], "BMIX": 1.0, "BMIX_MAG": 1.0, "CSHIFT": 0.1, "DAMP_NEWTON": 0.80000001, "DARWINR": [0.0], "DARWINV": [1.0], "DEG_THRESHOLD": 0.002, "DEPER": 0.3, "DFIELD": [0.0, 0.0, 0.0], "DIM": 3, "DIPOL": [-100.0, -100.0, -100.0], "EBREAK": 1e-08, "EDIFF": 1e-06, "EDIFFG": -0.02, "EFERMI": 0.0, "EFIELD": 0.0, "EMAX": -10.0, "EMIN": 10.0, "ENAUG": 322.069, "ENCUT4O": -1.0, "ENCUTGW": -2.0, "ENCUTGWSOFT": -2.0, "ENCUTLF": -1.0, "ENINI": 520.0, "ENMAX": 520.0, "EPSILON": 1.0, "EREF": 0.0, "EVENONLY": false, "EVENONLYGW": false, "EXXOEP": 0, "FOURORBIT": 0, "GGA": "--", "GGA_COMPAT": true, "HFALPHA": 0.0, "HFSCREEN": 0.0, "HFSCREENC": 0.0, "IALGO": 68, "IBRION": 2, "IBSE": 0, "ICHARG": 2, "ICORELEVEL": 0, "IDIOT": 3, "IDIPOL": 0, "IESPILON": 4, "IMIX": 4, "INIMIX": 1, "INIWAV": 1, "IRESTART": 0, "ISIF": 3, "ISMEAR": 0, "ISPIN": 1, "ISTART": 0, "ISYM": 2, "IWAVPR": 11, "I_CONSTRAINED_M": 0, "KBLOCK": 99, "KBLOWUP": true, "KGAMMA": true, "KPOINT": [-1, 0, 0, 0], "KPOINTS_OPT_MODE": 1, "KSPACING": 0.5, "L2ORDER": false, "LADDER": false, "LAMBDA": 1.0, "LASPH": true, "LASYNC": false, "LBERRY": false, "LCHARG": false, "LCHIMAG": false, "LCOMPAT": false, "LCORR": true, "LDAU": false, "LDIAG": true, "LDIPOL": false, "LDMP1": false, "LDOWNSAMPLE": false, "LELF": false, "LEPSILON": false, "LESF_SPLINES": false, "LFERMIGW": false, "LFINITE_TEMPERATURE": false, "LFOCKACE": false, "LFOCKAEDFT": false, "LFXC": false, "LFXCEPS": false, "LFXHEG": false, "LGAUGE": true, "LGWLF": false, "LHARTREE": true, "LHFCALC": false, "LHFONE": false, "LHOLEGF": false, "LKPOINTS_OPT": false, "LMAGBLOCH": false, "LMAXFOCK": 0, "LMAXMIX": 2, "LMAXMP2": -1, "LMAXPAW": -100, "LMETAGGA": false, "LMODELHF": false, "LMONO": false, "LMP2LT": false, "LMUSIC": false, "LNABLA": false, "LNICSALL": true, "LNONCOLLINEAR": false, "LOPTICS": false, "LORBIT": 11, "LORBITALREAL": false, "LPARD": false, "LPLANE": true, "LREAL": true, "LRHFCALC": false, "LRPA": false, "LRPAFORCE": false, "LSCAAWARE": false, "LSCALAPACK": true, "LSCALU": false, "LSELFENERGY": false, "LSINGLES": false, "LSMP2LT": false, "LSORBIT": false, "LSPECTRAL": false, "LSPECTRALGW": false, "LSPIRAL": false, "LSUBROT": false, "LSYMGRAD": false, "LTCTC": false, "LTCTE": false, "LTETE": false, "LTHOMAS": false, "LTRIPLET": false, "LUSE_VDW": false, "LVEL": false, "LVHAR": false, "LVTOT": false, "LWAVE": false, "LZEROZ": false, "MAGATOM": 0, "MAGDIPOL": [0.0, 0.0, 0.0], "MAGMOM": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], "MAGPOS": [0.0, 0.0, 0.0], "MAXMEM": 2800, "MAXMIX": -45, "MCALPHA": 0.0, "MDALGO": 0, "MIXFIRST": false, "MIXPRE": 1, "MODEL_ALPHA": 1.0, "MODEL_EPS0": 12.00772552, "MODEL_GW": 0, "MREMOVE": 5, "NATURALO": 2, "NBANDS": 24, "NBANDSGW": -1, "NBANDSGWLOW": 0, "NBANDSHIGH": -1, "NBANDSLOW": -1, "NBANDSO": -1, "NBANDSV": -1, "NBLK": -1, "NBLOCK": 1, "NEDOS": 301, "NELECT": 32.0, "NELM": 100, "NELMDL": -5, "NELMGW": 1, "NELMHF": 1, "NELMIN": 2, "NFREE": 1, "NGX": 40, "NGXF": 80, "NGY": 40, "NGYF": 80, "NGZ": 40, "NGZF": 80, "NKREDLFX": 1, "NKREDLFY": 1, "NKREDLFZ": 1, "NKREDX": 1, "NKREDY": 1, "NKREDZ": 1, "NLSPLINE": false, "NMAXFOCKAE": 0, "NMIN": 0, "NOMEGA": 0, "NOMEGAPAR": -1, "NOMEGAR": 0, "NPACO": 256, "NPAR": 4, "NREBOOT": 0, "NRMM": 4, "NSIM": 4, "NSW": 99, "NTAUPAR": -1, "NUCIND": false, "NUPDOWN": -1.0, "NWRITE": 2, "ODDONLY": false, "ODDONLYGW": false, "OFIELD_A": 0.0, "OFIELD_K": [0.0, 0.0, 0.0], "OFIELD_KAPPA": 0.0, "OFIELD_Q6_FAR": 0.0, "OFIELD_Q6_NEAR": 0.0, "OMEGAGRID": 0, "OMEGAMAX": -1.0, "OMEGAMIN": -30.0, "OMEGATL": -200.0, "ORBITALMAG": false, "PARAM1": 0.1234, "PARAM2": 1.0, "PARAM3": 0.0, "PHON_NSTRUCT": -1, "POMASS": [28.085], "POTIM": 0.5, "PREC": "Accura", "PRECFOCK": "", "PSTRESS": 0.0, "QSPIRAL": [0.0, 0.0, 0.0], "ROPT": [-0.00025], "RTIME": -0.1, "RWIGS": [-1.0], "SAXIS": [0.0, 0.0, 1.0], "SCALEE": 1.0, "SCISSOR": 0.0, "SHIFTRED": false, "SIGMA": 0.05, "SMASS": -3.0, "STM": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "SYMPREC": 1e-05, "SYSTEM": "unknown system", "TEBEG": 0.0001, "TEEND": 0.0001, "TELESCOPE": 0, "TIME": 0.4, "TURBO": 0, "VOSKOWN": 0, "WC": 100.0, "WEIMIN": 0.001, "WPLASMA": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "WPLASMAI": 0.0, "ZAB_VDW": -0.8491}, "source_metadata": {"convergence": {"electronic": true, "ionic": true}, "kpoints": {"@class": "Kpoints", "@module": "pymatgen.io.vasp.inputs", "comment": "Kpoints from vasprun.xml", "coord_type": null, "generation_style": "Gamma", "genvec1": [0.25, 0.0, 0.0], "genvec2": [0.0, 0.25, 0.0], "genvec3": [0.0, 0.0, 0.25], "kpoints": [[4, 4, 4]], "kpts_weights": null, "labels": null, "nkpoints": 0, "shift": [0.0, 0.0, 0.0], "tet_connections": null, "tet_number": 0, "tet_weight": 0, "usershift": [0.0, 0.0, 0.0]}, "potcar_symbols": ["PAW_PBE Si 05Jan2001"], "sha256": "968f94c022d57c6da8026b49c2f710a2e92011cfc3519cf8e1b74479a2eec394", "software": "VASP", "vasprun_path": "MATCREATOR/.scratch/aidb-wayfinding/prototypes/vasp-result-archive/fixture/vasprun.xml", "version": "6.3.0", "cloud_record_id": null, "logical_namespace": "fine_tune_working", "origin": "local_calculation", "sync_status": "local_only", "sidecar_id": "e0abcb7b356ad823afc174b6"}, "screening": {}, "provenance": {"input_stress_convention": "vasp_compressive_positive", "input_stress_unit": "kbar", "normalized_stress_convention": "tensile_positive", "normalized_stress_unit": "eV/Angstrom^3", "original_stress_convention": "tensile_positive", "original_stress_unit": "kbar", "source_dataset": "prototype_only", "source_id": "explicit-prototype-si", "stress_sign_conversion": -1}, "original_dft_u_record_id": null, "workflow_id": null, "ingest_run_id": null, "trajectory_id": null, "frame_index": null, "parent_structure_id": null, "sampling_type": null, "tags": []}]}}</script><script>const E=JSON.parse(document.getElementById('evidence-data').textContent);</script>
+.layout{height:calc(100dvh - 124px);min-height:570px;grid-template-columns:190px minmax(0,1fr) 250px}
+.lab{background:var(--panel);border-bottom-color:var(--soft)}.lab-title .tag{background:#303632;color:#c4d0c8}
+.body{white-space:normal}.composer{flex-shrink:0}.categories{margin-bottom:8px}
+.categories button,.quiet{font-size:12px;padding:5px 8px}.guided button{width:auto}
+.right .block{order:unset!important}.right p{margin:6px 0}summary{cursor:pointer;color:var(--muted)}
+.fields{display:grid;grid-template-columns:86px 1fr;gap:5px 10px;font-size:12px}
+.fields dt{color:var(--muted)}.fields dd{margin:0;overflow-wrap:anywhere}
+.trace{font-size:12px;padding:8px 11px;border:1px solid var(--soft);border-radius:7px;margin:0 0 12px 39px}
+.coverage{overflow-x:auto;margin-top:8px}.coverage .table{min-width:420px}
+.structure-view{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.structure-view svg{width:150px;max-width:100%;background:var(--bg);border-radius:6px}
+.record-details{border-top:1px solid var(--soft);margin-top:10px;padding-top:8px}.record-details h4{margin:12px 0 0}
+.actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}.actions button{font-size:12px}
+.exception-log{padding-left:17px;margin:7px 0 10px}.exception-log li+li{margin-top:7px}
+.exception-tools{display:grid;gap:6px;margin-top:8px}.state-details{padding:10px 13px;font-size:12px}
+@media(min-width:1550px){.layout{grid-template-columns:220px minmax(0,1fr) 280px}}
+@media(max-width:1100px){.layout{grid-template-columns:160px minmax(0,1fr) 220px;gap:8px;padding:8px}.feed{padding:14px}.composer{padding:12px}}
+@media(max-width:860px){.layout{height:auto;min-height:0;grid-template-columns:minmax(0,1fr)}.chat{min-height:570px;height:82dvh}.right{display:block}.chat-head,.feed{padding:12px}.modal-backdrop{padding:12px}}
+</style>
+<body>
+<header class="lab">
+  <div class="row spread"><div class="lab-title"><span class="tag">#03 · III · 原型</span>Si 结果满足什么条件可以保存？查询后能核对哪些候选数据？</div><button id="reset" class="quiet">重新体验</button></div>
+  <p>按钮代替文字输入 · 演示库保存在本页内存中</p>
+  <nav id="scenarios" class="scenarios" aria-label="体验流程"></nav>
+</header>
+<main class="layout">
+  <aside class="rail">
+    <div class="card brand">◇ MATCREATOR</div>
+    <div class="card"><div class="section-title">Agent Graph · 最近操作</div><div id="graph" class="graph"></div></div>
+    <div class="card"><div class="section-title">Remote Jobs</div><div class="job">
+      <b>si-bulk-relax</b><p class="small muted">已完成 · Si / 8 原子<br>工作区已有 VASP 输出</p>
+      <button class="quiet" data-action="IMPORT">保存已有计算结果</button>
+    </div></div>
+  </aside>
+  <section class="card chat">
+    <nav class="tabs" aria-label="工作区"><button id="chat-tab">◉ AIDB 对话</button><button id="db-tab">▦ 库中记录</button></nav>
+    <div class="chat-head"><h1 id="conversation-title"></h1><div id="scenario-note" class="small muted"></div></div>
+    <div id="feed" class="feed" aria-live="polite"></div><div id="database" class="workspace" hidden></div>
+    <div class="composer">
+      <nav id="categories" class="row categories" aria-label="四类主动操作"></nav>
+      <div id="presets" class="presets"></div>
+      <details id="import-conditions" class="small" style="margin-top:6px">
+        <summary>查看保存条件</summary>
+        <p>计算目录 si-bulk-relax、来源 ID explicit-prototype-si。目录内须有且仅有一份可解析且读取期间未变化的 vasprun.xml 或 vasprun.xml.gz。可读取最终结构，且电子与离子均收敛时才写入。可用标签随末帧保存。</p>
+      </details>
+      <div id="guided" class="guided"></div>
+    </div>
+  </section>
+  <aside class="card right">
+    <section class="block"><h2>当前记录</h2><div id="selected"></div></section>
+    <section class="block"><h2>Files</h2><div id="files"></div></section>
+    <section class="block" aria-labelledby="exception-heading">
+      <h2 id="exception-heading">异常栏 <span id="exception-count" class="tag">0</span></h2>
+      <div id="exceptions" class="small" aria-live="polite"></div>
+      <details class="small">
+        <summary>试几个异常</summary>
+        <div class="exception-tools">
+          <button class="quiet" data-action="MISSING_INPUT">模拟缺少 VASP 输出</button>
+          <button class="quiet" data-action="UNCONVERGED">模拟离子未收敛</button>
+          <button class="quiet" data-action="READ_FAILURE">模拟一次查询失败</button>
+          <button class="quiet" id="stale-export" data-action="STALE_EXPORT" disabled>用已删除的选择导出</button>
+        </div>
+      </details>
+    </section>
+    <details class="state-details"><summary>查看本次操作与状态</summary><div id="state"></div></details>
+  </aside>
+</main>
+<div id="modal-root"></div>
+<script id="evidence-data" type="application/json">{"snapshots": {"imported": [{"record_id": "67fd8aecb51086dec004fb9bc2c46963", "source_dataset": "prototype_only", "source_id": "explicit-prototype-si", "structure": {"@class": "Structure", "@module": "pymatgen.core.structure", "charge": 0.0, "lattice": {"a": 5.46845383, "alpha": 90.0, "b": 5.46845383, "beta": 90.0, "c": 5.46845383, "gamma": 90.0, "matrix": [[5.46845383, 0.0, 0.0], [0.0, 5.46845383, 0.0], [0.0, 0.0, 5.46845383]], "pbc": [true, true, true], "volume": 163.52857383287443}, "properties": {}, "sites": [{"abc": [-0.0, 0.0, -0.0], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [0.0, 0.0, 0.0]}, {"abc": [-0.0, 0.5, 0.5], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [0.0, 2.734226915, 2.734226915]}, {"abc": [0.5, 0.0, 0.5], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [2.734226915, 0.0, 2.734226915]}, {"abc": [0.5, 0.5, -0.0], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [2.734226915, 2.734226915, 0.0]}, {"abc": [0.25, 0.25, 0.25], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [1.3671134575, 1.3671134575, 1.3671134575]}, {"abc": [0.25, 0.75, 0.75], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [1.3671134575, 4.101340372499999, 4.101340372499999]}, {"abc": [0.75, 0.25, 0.75], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [4.101340372499999, 1.3671134575, 4.101340372499999]}, {"abc": [0.75, 0.75, 0.25], "label": "Si", "properties": {}, "species": [{"element": "Si", "occu": 1}], "xyz": [4.101340372499999, 4.101340372499999, 1.3671134575]}]}, "formula_reduced": "Si", "composition": {"Si": 8.0}, "elements": ["Si"], "nsites": 8, "structure_hash": "9e65f049d759c4977e29a1a76796e1847f8e94ea", "formula_pretty": "Si8", "volume": 163.52857383287443, "density": null, "energy": -43.38227814, "energy_per_atom": -5.4227847675, "forces": [[-0.0, 0.0, -0.0], [0.0, -0.0, 0.0], [0.0, 0.0, 0.0], [0.0, -0.0, -0.0], [0.0, -0.0, -0.0], [-0.0, 0.0, 0.0], [0.0, 0.0, -0.0], [-0.0, 0.0, -0.0]], "stress": [[-0.0003343641475260753, -0.0, -0.0], [-0.0, -0.0003343641475260753, -0.0], [0.0, -0.0, -0.0003343641475260753]], "stress_unit": "eV/Angstrom^3", "stress_convention": "tensile_positive", "virial": [[0.05467809218578393, 0.0, 0.0], [0.0, 0.05467809218578393, 0.0], [-0.0, 0.0, 0.05467809218578393]], "virial_unit": "eV", "magmom": null, "charge": null, "functional": null, "hubbard_u": null, "has_transition_metal": false, "calculation_type": "relaxation", "calculation_parameters": {"ADDGRID": false, "AEXX": 0.0, "AGGAC": 1.0, "AGGAX": 1.0, "ALDAC": 1.0, "ALDAX": 1.0, "AMIN": 0.1, "AMIX": 0.4, "AMIX_MAG": 1.6, "ANTIRES": 0, "APACO": 10.0, "AVECCONST": [0.0, 0.0, 0.0], "BMIX": 1.0, "BMIX_MAG": 1.0, "CSHIFT": 0.1, "DAMP_NEWTON": 0.80000001, "DARWINR": [0.0], "DARWINV": [1.0], "DEG_THRESHOLD": 0.002, "DEPER": 0.3, "DFIELD": [0.0, 0.0, 0.0], "DIM": 3, "DIPOL": [-100.0, -100.0, -100.0], "EBREAK": 1e-08, "EDIFF": 1e-06, "EDIFFG": -0.02, "EFERMI": 0.0, "EFIELD": 0.0, "EMAX": -10.0, "EMIN": 10.0, "ENAUG": 322.069, "ENCUT4O": -1.0, "ENCUTGW": -2.0, "ENCUTGWSOFT": -2.0, "ENCUTLF": -1.0, "ENINI": 520.0, "ENMAX": 520.0, "EPSILON": 1.0, "EREF": 0.0, "EVENONLY": false, "EVENONLYGW": false, "EXXOEP": 0, "FOURORBIT": 0, "GGA": "--", "GGA_COMPAT": true, "HFALPHA": 0.0, "HFSCREEN": 0.0, "HFSCREENC": 0.0, "IALGO": 68, "IBRION": 2, "IBSE": 0, "ICHARG": 2, "ICORELEVEL": 0, "IDIOT": 3, "IDIPOL": 0, "IESPILON": 4, "IMIX": 4, "INIMIX": 1, "INIWAV": 1, "IRESTART": 0, "ISIF": 3, "ISMEAR": 0, "ISPIN": 1, "ISTART": 0, "ISYM": 2, "IWAVPR": 11, "I_CONSTRAINED_M": 0, "KBLOCK": 99, "KBLOWUP": true, "KGAMMA": true, "KPOINT": [-1, 0, 0, 0], "KPOINTS_OPT_MODE": 1, "KSPACING": 0.5, "L2ORDER": false, "LADDER": false, "LAMBDA": 1.0, "LASPH": true, "LASYNC": false, "LBERRY": false, "LCHARG": false, "LCHIMAG": false, "LCOMPAT": false, "LCORR": true, "LDAU": false, "LDIAG": true, "LDIPOL": false, "LDMP1": false, "LDOWNSAMPLE": false, "LELF": false, "LEPSILON": false, "LESF_SPLINES": false, "LFERMIGW": false, "LFINITE_TEMPERATURE": false, "LFOCKACE": false, "LFOCKAEDFT": false, "LFXC": false, "LFXCEPS": false, "LFXHEG": false, "LGAUGE": true, "LGWLF": false, "LHARTREE": true, "LHFCALC": false, "LHFONE": false, "LHOLEGF": false, "LKPOINTS_OPT": false, "LMAGBLOCH": false, "LMAXFOCK": 0, "LMAXMIX": 2, "LMAXMP2": -1, "LMAXPAW": -100, "LMETAGGA": false, "LMODELHF": false, "LMONO": false, "LMP2LT": false, "LMUSIC": false, "LNABLA": false, "LNICSALL": true, "LNONCOLLINEAR": false, "LOPTICS": false, "LORBIT": 11, "LORBITALREAL": false, "LPARD": false, "LPLANE": true, "LREAL": true, "LRHFCALC": false, "LRPA": false, "LRPAFORCE": false, "LSCAAWARE": false, "LSCALAPACK": true, "LSCALU": false, "LSELFENERGY": false, "LSINGLES": false, "LSMP2LT": false, "LSORBIT": false, "LSPECTRAL": false, "LSPECTRALGW": false, "LSPIRAL": false, "LSUBROT": false, "LSYMGRAD": false, "LTCTC": false, "LTCTE": false, "LTETE": false, "LTHOMAS": false, "LTRIPLET": false, "LUSE_VDW": false, "LVEL": false, "LVHAR": false, "LVTOT": false, "LWAVE": false, "LZEROZ": false, "MAGATOM": 0, "MAGDIPOL": [0.0, 0.0, 0.0], "MAGMOM": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], "MAGPOS": [0.0, 0.0, 0.0], "MAXMEM": 2800, "MAXMIX": -45, "MCALPHA": 0.0, "MDALGO": 0, "MIXFIRST": false, "MIXPRE": 1, "MODEL_ALPHA": 1.0, "MODEL_EPS0": 12.00772552, "MODEL_GW": 0, "MREMOVE": 5, "NATURALO": 2, "NBANDS": 24, "NBANDSGW": -1, "NBANDSGWLOW": 0, "NBANDSHIGH": -1, "NBANDSLOW": -1, "NBANDSO": -1, "NBANDSV": -1, "NBLK": -1, "NBLOCK": 1, "NEDOS": 301, "NELECT": 32.0, "NELM": 100, "NELMDL": -5, "NELMGW": 1, "NELMHF": 1, "NELMIN": 2, "NFREE": 1, "NGX": 40, "NGXF": 80, "NGY": 40, "NGYF": 80, "NGZ": 40, "NGZF": 80, "NKREDLFX": 1, "NKREDLFY": 1, "NKREDLFZ": 1, "NKREDX": 1, "NKREDY": 1, "NKREDZ": 1, "NLSPLINE": false, "NMAXFOCKAE": 0, "NMIN": 0, "NOMEGA": 0, "NOMEGAPAR": -1, "NOMEGAR": 0, "NPACO": 256, "NPAR": 4, "NREBOOT": 0, "NRMM": 4, "NSIM": 4, "NSW": 99, "NTAUPAR": -1, "NUCIND": false, "NUPDOWN": -1.0, "NWRITE": 2, "ODDONLY": false, "ODDONLYGW": false, "OFIELD_A": 0.0, "OFIELD_K": [0.0, 0.0, 0.0], "OFIELD_KAPPA": 0.0, "OFIELD_Q6_FAR": 0.0, "OFIELD_Q6_NEAR": 0.0, "OMEGAGRID": 0, "OMEGAMAX": -1.0, "OMEGAMIN": -30.0, "OMEGATL": -200.0, "ORBITALMAG": false, "PARAM1": 0.1234, "PARAM2": 1.0, "PARAM3": 0.0, "PHON_NSTRUCT": -1, "POMASS": [28.085], "POTIM": 0.5, "PREC": "Accura", "PRECFOCK": "", "PSTRESS": 0.0, "QSPIRAL": [0.0, 0.0, 0.0], "ROPT": [-0.00025], "RTIME": -0.1, "RWIGS": [-1.0], "SAXIS": [0.0, 0.0, 1.0], "SCALEE": 1.0, "SCISSOR": 0.0, "SHIFTRED": false, "SIGMA": 0.05, "SMASS": -3.0, "STM": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "SYMPREC": 1e-05, "SYSTEM": "unknown system", "TEBEG": 0.0001, "TEEND": 0.0001, "TELESCOPE": 0, "TIME": 0.4, "TURBO": 0, "VOSKOWN": 0, "WC": 100.0, "WEIMIN": 0.001, "WPLASMA": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "WPLASMAI": 0.0, "ZAB_VDW": -0.8491}, "source_metadata": {"convergence": {"electronic": true, "ionic": true}, "kpoints": {"@class": "Kpoints", "@module": "pymatgen.io.vasp.inputs", "comment": "Kpoints from vasprun.xml", "coord_type": null, "generation_style": "Gamma", "genvec1": [0.25, 0.0, 0.0], "genvec2": [0.0, 0.25, 0.0], "genvec3": [0.0, 0.0, 0.25], "kpoints": [[4, 4, 4]], "kpts_weights": null, "labels": null, "nkpoints": 0, "shift": [0.0, 0.0, 0.0], "tet_connections": null, "tet_number": 0, "tet_weight": 0, "usershift": [0.0, 0.0, 0.0]}, "potcar_symbols": ["PAW_PBE Si 05Jan2001"], "sha256": "968f94c022d57c6da8026b49c2f710a2e92011cfc3519cf8e1b74479a2eec394", "software": "VASP", "vasprun_path": "MATCREATOR/.scratch/aidb-wayfinding/prototypes/vasp-result-archive/fixture/vasprun.xml", "version": "6.3.0", "cloud_record_id": null, "logical_namespace": "fine_tune_working", "origin": "local_calculation", "sync_status": "local_only", "sidecar_id": "e0abcb7b356ad823afc174b6"}, "screening": {}, "provenance": {"input_stress_convention": "vasp_compressive_positive", "input_stress_unit": "kbar", "normalized_stress_convention": "tensile_positive", "normalized_stress_unit": "eV/Angstrom^3", "original_stress_convention": "tensile_positive", "original_stress_unit": "kbar", "source_dataset": "prototype_only", "source_id": "explicit-prototype-si", "stress_sign_conversion": -1}, "original_dft_u_record_id": null, "workflow_id": null, "ingest_run_id": null, "trajectory_id": null, "frame_index": null, "parent_structure_id": null, "sampling_type": null, "tags": []}]}}</script>
+<script>
+const sample = JSON.parse(document.getElementById('evidence-data').textContent).snapshots.imported[0];
+</script>
 <script id="pure-model">
-// Throwaway pure model: no DOM, persistence, database or network access.
-const Cases=[{label:'使用已有记录',title:'找到结构，加上备注，再导出',note:'库中预先放入 1 条演示记录；不代表查询会自动导入。',intro:'先查找硅的已有结果，再给记录加备注，最后下载结构文件。',steps:[['QUERY','查找 Si 记录'],['NOTE','选择一条备注'],['EXPORT','导出结构文件']]},{label:'保存已有计算结果',title:'先保存，再查询',note:'从空的演示库开始；工作区已有 Si 计算结果。',intro:'这份计算结果还没入库。点击“保存已有计算结果”后再查询，就能找到它。',steps:[['IMPORT','保存已有计算结果'],['QUERY','查询刚保存的记录'],['NOTE','选择一条备注'],['EXPORT','导出结构文件']]}];
-const Requests={QUERY:'查一下硅的已有结果。',NOTE:'给这条记录加个备注。',EXPORT:'导出这条记录的结构。',IMPORT:'把工作区已有的 Si 计算结果存入 AIDB。',DELETE:'删除这条记录。'};
-function initial(index=0){return {index,guide:0,view:'chat',records:index?[]:structuredClone(E.snapshots.imported),selected:null,queryCount:null,files:[],messages:[],last:'等待操作',steps:[],pendingDelete:false};}
-function poscar(record){const t=record.structure,els=[...new Set(t.sites.map(s=>s.species[0].element))];return ['Si - MatCreator prototype','1.0',...t.lattice.matrix.map(v=>v.join(' ')),els.join(' '),els.map(el=>t.sites.filter(s=>s.species[0].element===el).length).join(' '),'Direct',...els.flatMap(el=>t.sites.filter(s=>s.species[0].element===el).map(s=>s.abc.join(' ')))].join('\n')+'\n';}
-function transition(prev,action,value){const s=structuredClone(prev),say=(text,card)=>s.messages.push({role:'assistant',text,card}),done=(title,steps)=>{s.last=title;s.steps=steps;},row=()=>s.records.find(r=>r.record_id===s.selected);s.view='chat';if(Requests[action])s.messages.push({role:'user',text:Requests[action]});
- if(action==='SELECT'){s.selected=s.records[0]?.record_id||null;done('已选择记录',['从记录列表选择 Si']);say('已选中 Si 记录。','record');}
- if(action==='QUERY'){s.queryCount=s.records.length;s.selected=s.records[0]?.record_id||null;done('查询完成',['按 Si 查询已有记录',`返回 ${s.queryCount} 条；没有写入数据库`]);say(s.queryCount?'找到 1 条 Si 记录，已作为当前操作对象。':'还没有 Si 记录。可以先保存工作区已有的计算结果。',s.queryCount?'record':null);}
- if(action==='IMPORT'){if(s.records.length){done('记录已存在',['识别到同一份演示结果','本次未重复写入']);say('这份演示结果已经在库中，可以直接查询。');}else{s.records=structuredClone(E.snapshots.imported);done('保存完成',['读取工作区已有 VASP 结果','将 Si 记录加入演示库']);say('Si 结果已保存。现在可以查询它。');}}
- if(['NOTE','EXPORT','DELETE','SAVE_NOTE','CONFIRM_DELETE'].includes(action)&&!row()){say('先查询并选择一条记录。');done('等待选择记录',['本次未修改记录或生成文件']);return s;}
- if(action==='NOTE'){say('选一句备注，保存到当前记录。','note');done('选择备注',['等待选择备注内容']);}
- if(action==='SAVE_NOTE'){row().source_metadata={...row().source_metadata,user_note:value};say('备注已保存：“'+value+'”。');done('备注已保存',['更新当前记录的备注','备注显示在右侧记录卡']);}
- if(action==='EXPORT'){const name='Si-'+(s.files.length+1)+'.vasp';s.files.push({name,content:poscar(row()),recordId:row().record_id});say('结构文件已生成，点击文件名即可下载。POSCAR 包含晶格和原子坐标；备注保留在记录中。',{file:name});done('结构已导出',['读取当前记录的晶格和坐标','生成 '+name]);}
- if(action==='DELETE'){s.pendingDelete=true;say('删除当前演示记录？已下载的文件会保留。','delete');done('等待删除确认',['尚未删除记录']);}
- if(action==='CANCEL_DELETE'){s.pendingDelete=false;say('已取消删除。');done('已取消',['记录未变']);}
- if(action==='CONFIRM_DELETE'&&s.pendingDelete){s.records=s.records.filter(r=>r.record_id!==s.selected);s.selected=null;s.queryCount=null;s.pendingDelete=false;say('记录已删除。');done('删除完成',['移除当前记录','清除当前选择']);}
- const next=Cases[s.index].steps[s.guide]?.[0];if(action===next&&action!=='NOTE')s.guide++;if(action==='SAVE_NOTE'&&next==='NOTE')s.guide++;return s;}
-</script><script>
-const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let state=initial();
-function recordCard(){const r=state.records.find(r=>r.record_id===state.selected)||state.records[0];if(!r)return '<p class="muted">当前没有记录。</p>';return `<div class="result"><div class="row spread"><strong class="formula">Si</strong><span class="tag">VASP · 弛豫结果</span></div><div class="metrics"><div class="metric"><strong>${r.nsites}</strong><span>原子数</span></div><div class="metric"><strong>${Number(r.energy_per_atom).toFixed(3)}</strong><span>能量 / eV·atom⁻¹</span></div><div class="metric"><strong>${esc(r.functional||'未记录')}</strong><span>泛函</span></div></div><p class="small muted">备注：${esc(r.source_metadata?.user_note||'未添加')}</p><div class="result-actions">${!state.selected?'<button data-action="SELECT">选择此条</button>':'<span class="tag">当前记录</span>'}<button data-action="NOTE">加备注</button><button data-action="EXPORT">导出结构</button></div><details><summary>记录详情与其他操作</summary><dl class="fields"><dt>来源</dt><dd>si-bulk-relax / vasprun.xml</dd><dt>晶格长度</dt><dd>${r.structure.lattice.a.toFixed(4)} Å</dd><dt>记录 ID</dt><dd>${esc(r.record_id)}</dd></dl><button data-action="DELETE">删除记录</button></details></div>`;}
-function extra(c){if(c==='record')return recordCard();if(c==='note')return '<div class="note-choice"><button data-note="保留此结构，待复核">保留此结构，待复核</button><button data-note="用于后续计算">用于后续计算</button></div>';if(c==='delete')return state.pendingDelete?'<div class="note-choice"><button data-action="CONFIRM_DELETE">确认删除</button><button data-action="CANCEL_DELETE">取消</button></div>':'';if(c?.file)return `<div class="note-choice"><button data-download="${esc(c.file)}">↓ ${esc(c.file)}</button><button data-preview="${esc(c.file)}">预览</button></div>`;return '';}
-function render(){const c=Cases[state.index],r=state.records.find(r=>r.record_id===state.selected);$('scenarios').innerHTML=Cases.map((x,i)=>`<button data-case="${i}" class="${i===state.index?'active':''}">${x.label}</button>`).join('');$('conversation-title').textContent=c.title;$('scenario-note').textContent=c.note;$('chat-tab').classList.toggle('active',state.view==='chat');$('db-tab').classList.toggle('active',state.view==='db');$('feed').hidden=state.view!=='chat';$('database').hidden=state.view!=='db';
- $('feed').innerHTML=[{role:'assistant',text:c.intro},...state.messages].map(m=>`<div class="message ${m.role}"><div class="avatar">${m.role==='user'?'你':'M'}</div><div class="bubble"><div class="speaker">${m.role==='user'?'你':'MatCreator'}</div><div class="body">${esc(m.text)}${extra(m.card)}</div></div></div>`).join('')+(state.steps.length?'<details class="trace"><summary>查看执行过程 · '+esc(state.last)+'</summary><ol>'+state.steps.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></details>':'');
- $('database').innerHTML='<h2>已有记录 · '+state.records.length+'</h2><p class="small muted">此列表读取当前演示库，不会触发导入。</p>'+recordCard();
- $('selected').innerHTML=r?`<strong>Si · ${r.nsites} 原子</strong><p>${esc(r.source_metadata?.user_note||'尚未添加备注')}</p><button class="quiet" data-action="NOTE">${r.source_metadata?.user_note?'修改备注':'加备注'}</button>`:'<p class="small muted">查询后在这里查看当前记录和备注。</p>';
- $('files').innerHTML=state.files.length?state.files.map(f=>`<button class="file" data-download="${esc(f.name)}">↓ ${esc(f.name)}</button>`).join(''):'<p class="small muted">导出的结构文件会出现在这里。</p>';$('graph').innerHTML='<div class="node"><strong>'+esc(state.last)+'</strong></div>';
- $('state').innerHTML=`<dl class="fields"><dt>库中记录</dt><dd>${state.records.length} 条</dd><dt>最近查询</dt><dd>${state.queryCount===null?'尚未查询':state.queryCount+' 条'}</dd><dt>当前选择</dt><dd>${esc(state.selected||'无')}</dd><dt>备注</dt><dd>${esc(r?.source_metadata?.user_note||'无')}</dd><dt>导出文件</dt><dd>${state.files.length} 个</dd><dt>最近操作</dt><dd>${esc(state.last)}</dd></dl><p>数据流：已有输出 → 保存 → 数据库 → 查询 → 备注或结构文件。</p><p>控制流：操作由按钮触发，查询不会调用保存。</p>`;
- const next=c.steps[state.guide];$('guided').innerHTML=next?`<div class="row"><span class="small muted">体验 ${state.guide+1} / ${c.steps.length}</span><button id="next-step" class="primary">${esc(next[1])} →</button></div>`:'<div class="row"><span class="small green">这一轮已完成，可以继续自由操作。</span><button id="restart" class="quiet">再试一次</button></div>';$('feed').scrollTop=$('feed').scrollHeight;}
-function download(name){const f=state.files.find(f=>f.name===name);if(!f)return;const u=URL.createObjectURL(new Blob([f.content],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
-function modal(title,body){$('modal-root').innerHTML='<div class="modal-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-label="'+esc(title)+'"><div class="row spread"><h2>'+esc(title)+'</h2><button id="close-modal">关闭</button></div>'+body+'</section></div>';}
-document.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;if(b.dataset.case!==undefined){state=initial(Number(b.dataset.case));render();return;}if(b.dataset.action){state=transition(state,b.dataset.action);render();return;}if(b.dataset.note){state=transition(state,'SAVE_NOTE',b.dataset.note);render();return;}if(b.dataset.download){download(b.dataset.download);return;}if(b.dataset.preview){const f=state.files.find(f=>f.name===b.dataset.preview);if(f)modal(f.name,'<pre class="file-preview">'+esc(f.content)+'</pre>');return;}if(b.id==='next-step'){state=transition(state,Cases[state.index].steps[state.guide][0]);render();}if(b.id==='reset'||b.id==='restart'){state=initial(state.index);render();}if(b.id==='chat-tab'||b.id==='db-tab'){state.view=b.id==='chat-tab'?'chat':'db';render();}if(b.id==='close-modal')$('modal-root').innerHTML='';if(b.id==='help')modal('这版原型怎么体验','<p>选择顶部流程，再点击底部橙色按钮。也可以直接使用查询、备注和导出按钮，无需输入自然语言。</p><p>默认库中已有一条演示记录。另一个流程从空库开始，演示主动保存已有 VASP 结果。现有主动入口中 query 负责查询，insert 负责保存；自动采集的宿主触发另行定义。</p><p>本版移除了字段导出、JSONL 导出和故障演示入口。结构导出暂以 POSCAR 为候选，下载的 .vasp 文件包含晶格与原子坐标，不包含备注、能量或力。</p><p>数据取自此前 Si 隔离实验；交互、备注、删除和 POSCAR 生成均为内存演示，不代表生产功能已实现。为聚焦主流程，本版遇到重复保存时只提示已存在，不模拟覆盖；实际入口曾观察到重导入覆盖备注，处理策略仍待决定。</p>');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal-root').innerHTML='';});render();
-</script></body></html>
+const categories = [
+  ['查询与浏览', [['QUERY','查纯 Si'],['TARGET','查金刚石相 Si · 300 K MD'],['DETAIL','查看选中详情'],['OVERVIEW','查看库概况'],['ZERO','查 Xe']]],
+  ['导入与归档', [['IMPORT','保存已有 VASP 结果']]],
+  ['导出与交付', [['EXPORT','导出选中结构']]],
+  ['记录维护', [['NOTE','修改备注'],['DELETE','删除选中记录']]]
+];
+const fullFlow = [
+  ['QUERY','查询 Si 记录'],['DETAIL','查看记录详情'],['NOTE','修改备注'],
+  ['EXPORT','导出结构'],['DELETE','删除记录'],['VERIFY_DELETE','按原 ID 复查']
+];
+const saveAndQuery = [['IMPORT','保存已有 VASP 结果'], ...fullFlow];
+const cases = [
+  {label:'从空库开始', title:'保存已有计算结果，再使用记录', note:'工作区已有 Si 计算结果。查询和保存分别触发。', steps:saveAndQuery},
+  {label:'使用已有记录', title:'从一条已有记录开始', note:'库中预置一条 Si 演示记录。', steps:fullFlow},
+  {label:'缺力标签（模拟）', title:'缺少力的末帧还能保存吗？', note:'沿用 Si 结构，模拟输入缺力。用它核对入库成功和标签覆盖的区别。', steps:saveAndQuery, missingForces:true}
+];
+const requests = {
+  QUERY:'查纯 Si 的已有结果。', TARGET:'找纯 Si 金刚石相、300 K 的 MD 候选。', RELAX:'放宽晶相和温度，查看全部纯 Si 结果。', ZERO:'查一下氙的已有结果。', DETAIL:'看一下选中记录的详细条件。',
+  OVERVIEW:'看一下 AIDB 的库概况。', IMPORT:'把工作区已有的 Si 计算结果存入 AIDB。',
+  EXPORT:'把选中的结构导出来。', NOTE:'修改选中记录的备注。', DELETE:'删除选中的记录。',
+  VERIFY_DELETE:'用删除前的 ID 再查一次。'
+};
+
+function initial(index=0) {
+  return {
+    index, guide:0, category:index === 1 ? 0 : 1, view:'chat', record:index === 1 ? structuredClone(sample) : null,
+    selected:false, deletedId:null, pending:null, files:[], messages:[], exceptions:{},
+    last:'等待操作', steps:[], query:'尚未查询'
+  };
+}
+
+function availableLabels(record) {
+  return {energy:Number.isFinite(record.energy), forces:Array.isArray(record.forces), virial:Array.isArray(record.virial)};
+}
+
+function importProblem(input) {
+  if (input.files.length !== 1) return '须有且仅有一份 vasprun.xml 或 vasprun.xml.gz。本次未写入。';
+  if (!input.id || !input.record.structure?.sites?.length) {
+    return '缺少来源 ID 或可读的最终结构。本次未写入。';
+  }
+  if (!input.unchanged || !input.record.source_metadata?.sha256) {
+    return '未确认 XML 在读取期间保持一致。本次未写入。';
+  }
+  const convergence = input.record.source_metadata.convergence;
+  if (convergence?.electronic !== true || convergence?.ionic !== true) {
+    return '电子和离子收敛未同时确认。本次未写入。';
+  }
+  return null;
+}
+
+function poscar(record) {
+  const {lattice, sites} = record.structure;
+  const elements = [...new Set(sites.map(site => site.species[0].element))];
+  const groups = elements.map(element => sites.filter(site => site.species[0].element === element));
+  return [
+    record.formula_reduced + ' - MatCreator prototype', '1.0', ...lattice.matrix.map(vector => vector.join(' ')),
+    elements.join(' '), groups.map(group => group.length).join(' '), 'Direct',
+    ...groups.flatMap(group => group.map(site => site.abc.join(' ')))
+  ].join('\n') + '\n';
+}
+
+function transition(previous, action, value) {
+  const state = structuredClone(previous);
+  const say = (text, card) => state.messages.push({role:'assistant', text, card});
+  const done = (title, ...steps) => { state.last = title; state.steps = steps; };
+  const advance = step => { if (cases[state.index].steps[state.guide]?.[0] === step) state.guide++; };
+  const issue = (kind, title, text) => {
+    state.exceptions[kind] = {title, text};
+    say(text);
+    done(title, text);
+  };
+  const current = state.selected ? state.record : null;
+  const pending = state.pending;
+  state.pending = null;
+  state.view = 'chat';
+  const category = categories.findIndex(([, actions]) => actions.some(([key]) => key === action));
+  if (category !== -1) state.category = category;
+  if (requests[action]) state.messages.push({role:'user', text:requests[action]});
+  if (['DETAIL','NOTE','EXPORT','DELETE'].includes(action) && !current) {
+    say('请先查询或在库中选择一条记录。');
+    done('等待选择记录', '当前没有选中的记录');
+    return state;
+  }
+
+  switch (action) {
+    case 'QUERY':
+    case 'TARGET':
+    case 'RELAX':
+    case 'ZERO': {
+      const formula = action === 'ZERO' ? 'Xe' : 'Si';
+      const pure = state.record?.formula_reduced === formula;
+      const found = pure && action !== 'TARGET';
+      const scope = action === 'TARGET' ? '纯 Si · 金刚石相 · MD 设定温度 300 K' :
+        action === 'ZERO' ? 'Xe' : '纯 Si（不含 Si 化合物）';
+      const result = found ? '查询完成，命中 1 条候选。' : '查询完成，命中 0 条。';
+      state.query = scope + ' · ' + (found ? '1 条' : '0 条');
+      state.selected = found;
+      say(result, {
+        kind:'query', scope, record:found ? structuredClone(state.record) : null,
+        canRelax:action === 'TARGET' && pure, relaxed:action === 'RELAX'
+      });
+      done('查询完成', '有效条件 ' + scope, result);
+      if (found) advance('QUERY');
+      break;
+    }
+    case 'SELECT':
+      if (!state.record) break;
+      state.selected = true;
+      say('已选中 Si 记录。');
+      done('已选择记录', '从库中记录选择');
+      break;
+    case 'DETAIL':
+      say('这是选中记录的详情。', {kind:'detail', record:structuredClone(current)});
+      done('详情已读取', '按选中的 ID 读取');
+      advance('DETAIL');
+      break;
+    case 'OVERVIEW':
+      say(state.record ? '库中共有 1 条记录。材料为 Si，来源为已有 VASP 计算结果。' : '库中共有 0 条记录。');
+      done('库概况已读取', '读取记录总数及来源');
+      break;
+    case 'IMPORT':
+    case 'MISSING_INPUT':
+    case 'UNCONVERGED': {
+      const record = structuredClone(sample);
+      if (cases[state.index].missingForces) {
+        record.forces = null;
+        record.source_dataset = 'synthetic_missing_forces';
+      }
+      if (action === 'UNCONVERGED') record.source_metadata.convergence.ionic = false;
+      // The offline fixture models the unchanged XML verified by the original run.
+      const input = {id:record.source_id, files:action === 'MISSING_INPUT' ? [] : ['vasprun.xml'], unchanged:true, record};
+      const problem = importProblem(input);
+      if (problem) {
+        issue(action, '入库条件未满足', problem);
+        break;
+      }
+      if (state.record) {
+        issue('duplicate', '记录已存在', '同一份结果已在库中。本次演示保留原记录及备注。历史实跑曾观察到重导入覆盖备注。');
+        break;
+      }
+      state.record = input.record;
+      say('已保存 1 条 Si 结果，按原 ID 在演示库读回。', {kind:'saved', record:structuredClone(state.record)});
+      done('保存完成', '确认单份 XML、来源、可读末态及双收敛', '写入并按原 ID 读回');
+      advance('IMPORT');
+      break;
+    }
+    case 'EXPORT': {
+      const file = {name:'Si-' + (state.files.length + 1) + '.vasp', content:poscar(current)};
+      state.files.push(file);
+      say('已交付 1 / 1 个结构文件。POSCAR 包含晶格、元素和原子坐标。', {kind:'file', name:file.name});
+      done('结构已导出', '读取选中记录的结构', '生成 ' + file.name);
+      advance('EXPORT');
+      break;
+    }
+    case 'NOTE':
+      state.pending = 'note';
+      say('选一句备注，保存到当前记录。', {kind:'note'});
+      done('等待保存备注', '选择备注内容');
+      break;
+    case 'SAVE_NOTE':
+      if (pending !== 'note' || !current) break;
+      current.source_metadata = {...current.source_metadata, user_note:value};
+      say('已保存备注「' + value + '」。');
+      done('备注已保存', '更新选中记录的备注', '按同一 ID 读回');
+      advance('NOTE');
+      break;
+    case 'DELETE':
+      state.pending = 'delete';
+      say('删除这条 Si 记录？之前导出的文件会保留。', {kind:'delete'});
+      done('等待删除确认', '确认后移除当前记录');
+      break;
+    case 'CANCEL_DELETE':
+      if (pending !== 'delete') break;
+      say('已取消删除。');
+      done('已取消删除', '保留原记录');
+      break;
+    case 'CONFIRM_DELETE':
+      if (pending !== 'delete' || !current) break;
+      state.deletedId = current.record_id;
+      state.record = null;
+      state.selected = false;
+      say('已删除当前记录。', {kind:'deleted'});
+      done('删除完成', '移除当前记录', '清除当前选择');
+      advance('DELETE');
+      break;
+    case 'VERIFY_DELETE': {
+      if (!state.deletedId) break;
+      const count = Number(state.record?.record_id === state.deletedId);
+      state.query = '删除前的 ID · ' + count + ' 条';
+      say('按原 ID 查询完成，命中 ' + count + ' 条。');
+      done('复查完成', '按删除前的 ID 查询');
+      if (!count) advance('VERIFY_DELETE');
+      break;
+    }
+    case 'READ_FAILURE':
+      state.query = 'Si · 查询失败，命中数未知';
+      issue('read', '数据库读取失败', '本次模拟查询未完成，命中数未知。可重新查询。');
+      break;
+    case 'STALE_EXPORT':
+      if (state.deletedId && !state.record) {
+        issue('stale', '旧选择已失效', '请求 1 条，实际交付 0 条。本页未生成文件。');
+      }
+      break;
+  }
+  return state;
+}
+</script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const fields = entries => '<dl class="fields">' + entries.map(([label,value]) => '<dt>' + label + '</dt><dd>' + esc(value) + '</dd>').join('') + '</dl>';
+let state = initial();
+
+function structureView(record) {
+  const sites = record.structure.sites;
+  const points = sites.map((site,i) => {
+    const [a,b,c] = site.abc;
+    const x = 19 + 85*a + 29*c;
+    const y = 100 - 67*b - 23*c;
+    return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="#8fbaa8"><title>Si ' + (i+1) + '</title></circle>';
+  }).join('');
+  const coordinates = sites.map((site,i) => '<li>Si ' + (i+1) + ' · ' + site.abc.map(x => x.toFixed(5)).join(', ') + '</li>').join('');
+  const lattice = record.structure.lattice.matrix.map(vector => vector.map(x => x.toFixed(5)).join(', ')).join(' / ');
+  return '<div class="structure-view"><svg viewBox="0 0 150 120" role="img" aria-label="末态结构的分数坐标投影">' +
+    '<path d="M19 100h85V33H19z M19 100l29-23h85V10H48V77 M19 33l29-23 M104 33l29-23 M104 100l29-23" fill="none" stroke="#596a62"/>' +
+    points + '</svg><span class="small muted">弛豫末态 · 分数坐标示意</span></div>' +
+    '<details><summary>晶格与有序原子坐标</summary><p class="small">晶格向量（Å）' + esc(lattice) + '</p><ol class="small">' + coordinates + '</ol></details>';
+}
+
+function recordCard(record, detail=false) {
+  const metadata = record.source_metadata;
+  const params = record.calculation_parameters;
+  const labels = availableLabels(record);
+  const has = value => value ? '有' : '缺失';
+  const functional = record.functional || '未知';
+  const metrics = '<strong>' + esc(record.formula_reduced) + ' · ' + record.nsites + ' 原子 · 弛豫末帧</strong>' +
+    '<p class="small">晶相／空间群未核实 · MD 温度不适用 · 泛函' + esc(functional) + ' · 磁性未知</p>' +
+    '<p class="small">能量 ' + has(labels.energy) + ' · 力 ' + has(labels.forces) + ' · virial ' + has(labels.virial) + '</p>' +
+    '<p class="small muted">来源 ' + esc(record.source_dataset) + ' · 备注 ' + esc(metadata.user_note || '未添加') + '</p>';
+  const details = detail ? '<div class="record-details"><h4>结构与采样</h4>' + structureView(record) +
+    fields([['帧范围','可核实 1 个末帧。源 XML 有 3 个离子步。'], ['晶相与空间群','未核实'], ['MD 温度','不适用']]) +
+    '<h4>标签方法与磁性</h4>' + fields([
+      ['标签任务',metadata.software + ' ' + metadata.version + ' · 结构弛豫'],
+      ['泛函',functional], ['加 U 设置',params.LDAU === false ? '关闭' : '未核实'],
+      ['赝势标识',metadata.potcar_symbols.join(', ')],
+      ['k 点网格',metadata.kpoints.kpoints[0].join(' × ')],
+      ['电子收敛 EDIFF',params.EDIFF + ' eV'], ['离子收敛 EDIFFG',params.EDIFFG + ' eV/Å'],
+      ['自旋计算设置','ISPIN=' + params.ISPIN + ' · 未开启自旋极化'],
+      ['磁性结果','未知 · 最终磁矩未提取']
+    ]) + '<h4>末帧标签</h4>' + fields([
+      ['总能 E',labels.energy ? record.energy + ' eV（末步 e_0_energy）' : '缺失'],
+      ['逐原子力 F',labels.forces ? record.forces.length + ' × 3 · eV/Å · 与结构采用同一原子顺序' : '缺失'],
+      ['应力',record.stress ? '3 × 3 · eV/Å³ · 拉伸为正' : '缺失'],
+      ['virial V',labels.virial ? '3 × 3 · ' + record.virial_unit + ' · 由归一应力与体积推导后读回（−应力 × 体积）' : '缺失'],
+      ['收敛','电子及离子均已确认']
+    ]) + '<h4>来源</h4>' + fields([
+      ['数据集',record.source_dataset], ['来源 ID',record.source_id], ['记录 ID',record.record_id],
+      ['来源文件','vasprun.xml（只读回末帧）'], ['SHA-256',metadata.sha256],
+      ['证据',record.source_dataset === 'synthetic_missing_forces' ? '基于实证结构的缺力模拟。' : '隔离库读回样本。']
+    ]) + '</div>' : '';
+  return '<div class="result">' + metrics + details + '</div>';
+}
+
+function queryCard(card) {
+  const scope = '<p class="small"><b>有效条件</b> ' + esc(card.scope) + ' · 覆盖基于本次全部命中</p>';
+  if (!card.record) {
+    return scope + (card.canRelax ? '<p class="small">库中的 Si 弛豫末帧无法核实晶相，且 MD 温度不适用。</p>' +
+      '<button class="quiet" data-action="RELAX">放宽为纯 Si</button>' : '');
+  }
+  const labels = availableLabels(card.record);
+  const paired = Number(labels.energy && labels.forces);
+  return scope + (card.relaxed ? '<p class="small warn">放宽查询候选 · 仅确认纯 Si。晶相未核实，MD 温度不适用。</p>' : '') +
+    '<div class="coverage"><table class="table"><thead><tr><th>晶相／构型</th><th>采样／温度</th><th>标签方法</th><th>记录／帧</th><th>E+F／其中另有 V</th></tr></thead>' +
+    '<tbody><tr><td>晶相未核实</td><td>弛豫末帧／不适用</td><td>' + esc(card.record.functional || '未知') + '</td><td>1／1</td><td>' +
+    paired + '／' + Number(paired && labels.virial) + '</td></tr></tbody></table></div>' + recordCard(card.record) +
+    '<p class="small muted">候选覆盖用于挑选数据。训练准入还取决于目标配置和标签一致性。</p>' +
+    '<details><summary>查看此条详情</summary>' + recordCard(card.record,true) + '</details>';
+}
+
+function cardHtml(card, latest) {
+  if (!card) return '';
+  switch (card.kind) {
+    case 'query': return queryCard(card);
+    case 'detail': return recordCard(card.record, true);
+    case 'saved': return '<p class="small mono">记录 ID ' + esc(card.record.record_id) + '</p>' +
+      '<p class="small muted">计算目录 si-bulk-relax · 单份 XML · 双收敛</p>' + recordCard(card.record) +
+      '<details><summary>查看入库读回字段</summary>' + recordCard(card.record,true) + '</details>';
+    case 'deleted': return '<div class="actions"><button data-action="VERIFY_DELETE">按原 ID 复查</button></div>';
+    case 'note':
+      return latest && state.pending === 'note' ? '<div class="actions"><button data-note="保留此结构，待复核">保留此结构，待复核</button><button data-note="用于后续计算">用于后续计算</button></div>' : '';
+    case 'delete':
+      return latest && state.pending === 'delete' ? '<div class="actions"><button data-action="CONFIRM_DELETE">确认删除</button><button data-action="CANCEL_DELETE">取消</button></div>' : '';
+    case 'file':
+      return '<div class="actions"><button data-download="' + esc(card.name) + '">↓ ' + esc(card.name) + '</button><button data-preview="' + esc(card.name) + '">预览</button></div>';
+  }
+}
+
+function choice(label, key, index, active) {
+  return '<button data-' + key + '="' + index + '" aria-pressed="' + active + '" class="' + (active ? 'active' : '') + '">' + label + '</button>';
+}
+
+function render(scroll=true) {
+  const scenario = cases[state.index];
+  const issues = Object.values(state.exceptions);
+  $('scenarios').innerHTML = cases.map((item,i) => choice(item.label,'case',i,i === state.index)).join('');
+  $('conversation-title').textContent = scenario.title;
+  $('scenario-note').textContent = scenario.note;
+  $('chat-tab').classList.toggle('active', state.view === 'chat');
+  $('db-tab').classList.toggle('active', state.view === 'db');
+  $('feed').hidden = state.view !== 'chat';
+  $('database').hidden = state.view !== 'db';
+  $('categories').innerHTML = categories.map(([label],i) => choice(label,'category',i,i === state.category)).join('');
+  $('import-conditions').hidden = state.category !== 1;
+  $('presets').innerHTML = categories[state.category][1].map(([action,label]) => '<button data-action="' + action + '">' + label + '</button>').join('');
+  const welcome = {role:'assistant', text:'任选一类操作，或跟着底部按钮走一遍。同一条记录的变化可以在右栏查看。'};
+  $('feed').innerHTML = [welcome, ...state.messages].map((message,i) =>
+    '<div class="message ' + message.role + '"><div class="avatar">' + (message.role === 'user' ? '你' : 'M') +
+    '</div><div class="bubble"><div class="speaker">' + (message.role === 'user' ? '你' : 'MatCreator') +
+    '</div><div class="body">' + esc(message.text) + cardHtml(message.card, i === state.messages.length) + '</div></div></div>'
+  ).join('') + (state.steps.length ? '<details class="trace"><summary>查看执行过程 · ' + esc(state.last) + '</summary><ol>' +
+    state.steps.map(step => '<li>' + esc(step) + '</li>').join('') + '</ol></details>' : '');
+  $('database').innerHTML = '<h2>库中记录 · ' + Number(Boolean(state.record)) + ' 条</h2>' +
+    (state.record ? recordCard(state.record) + '<div class="actions"><button data-action="SELECT">选择此条</button></div>' : '<p class="muted">当前演示库为空。</p>');
+  $('selected').innerHTML = state.selected
+    ? '<strong>Si · ' + state.record.nsites + ' 原子</strong><p>' + esc(state.record.source_metadata?.user_note || '尚未添加备注') + '</p><button class="quiet" data-action="DETAIL">查看详情</button>'
+    : '<p class="small muted">当前未选择记录。</p>';
+  $('files').innerHTML = state.files.length ? state.files.map(file => '<button class="file" data-download="' + esc(file.name) + '">↓ ' + esc(file.name) + '</button>').join('') : '<p class="small muted">暂无导出文件。</p>';
+  $('exception-count').textContent = issues.length;
+  $('exceptions').innerHTML = issues.length ? '<ul class="exception-log">' + issues.map(issue =>
+    '<li><strong class="warn">' + esc(issue.title) + '</strong><br>' + esc(issue.text) + '</li>').join('') + '</ul>' : '<p class="muted">暂无异常。</p>';
+  $('stale-export').disabled = !state.deletedId || Boolean(state.record);
+  $('graph').innerHTML = '<div class="node"><strong>' + esc(state.last) + '</strong></div>';
+  $('state').innerHTML = fields([
+    ['库中记录',Number(Boolean(state.record)) + ' 条'], ['最近查询',state.query],
+    ['当前选择',state.selected ? state.record.record_id : '无'], ['导出文件',state.files.length + ' 个']
+  ]);
+  const next = scenario.steps[state.guide];
+  const waiting = (next?.[0] === 'NOTE' && state.pending === 'note') || (next?.[0] === 'DELETE' && state.pending === 'delete');
+  $('guided').innerHTML = next
+    ? '<div class="row spread"><span class="small muted">引导 ' + (state.guide+1) + ' / ' + scenario.steps.length + '</span>' +
+      (waiting ? '<span class="small">请在上方对话中确认</span>' : '<button class="primary" data-action="' + next[0] + '">' + next[1] + ' →</button>') + '</div>'
+    : '<span class="guide-complete">本轮体验完成，可以继续自由操作。</span>';
+  if (scroll) $('feed').scrollTop = $('feed').scrollHeight;
+}
+
+function showFile(file, download) {
+  if (!file) return;
+  if (download) {
+    const url = URL.createObjectURL(new Blob([file.content], {type:'text/plain;charset=utf-8'}));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = file.name;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    return;
+  }
+  $('modal-root').innerHTML = '<div class="modal-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-label="' +
+    esc(file.name) + '"><button class="close" id="close-modal">关闭</button><h2>' + esc(file.name) + '</h2><pre>' +
+    esc(file.content) + '</pre></section></div>';
+  $('close-modal').focus();
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  const data = button.dataset;
+  if (data.download || data.preview) {
+    showFile(state.files.find(file => file.name === (data.download || data.preview)), Boolean(data.download));
+    return;
+  }
+  if (button.id === 'close-modal') {
+    $('modal-root').innerHTML = '';
+    return;
+  }
+  if (data.case !== undefined || button.id === 'reset') {
+    state = initial(data.case === undefined ? state.index : Number(data.case));
+  } else if (data.category !== undefined) {
+    state.category = Number(data.category);
+    render(false);
+    $('categories').children[state.category].focus();
+    return;
+  } else if (data.action || data.note) {
+    state = transition(state, data.action || 'SAVE_NOTE', data.note);
+  } else if (button.id === 'chat-tab' || button.id === 'db-tab') {
+    state.view = button.id === 'chat-tab' ? 'chat' : 'db';
+  }
+  render();
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') $('modal-root').innerHTML = '';
+});
+render();
+</script>
+</body>
+</html>
