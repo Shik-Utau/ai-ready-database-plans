@@ -1,0 +1,4 @@
+# Checksummed delivery artifacts retain their bytes on every checkout.
+* -text
+# Patch context lines and pinned upstream whitespace are intentional.
+*.patch whitespace=-blank-at-eol,-blank-at-eof
